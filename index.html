@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive educational guide to water purification and filtration methods for high school chemistry."
+    />
+    <title>Water Purification &amp; Filtration — Interactive Chemistry</title>
+    <!-- Prevent dark theme flash: apply saved theme before render -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('purewater-theme');
+        if (stored === 'dark' ||
+            (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Skip link for accessibility -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ============================================================
+         PROGRESS BAR — shows scroll position through the page
+    ============================================================= -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <!-- ============================================================
+         STICKY NAVIGATION
+    ============================================================= -->
+    <nav class="site-nav" id="siteNav" aria-label="Section navigation">
+      <a href="#hero" class="nav-brand">
+        <span class="nav-drop" aria-hidden="true"></span>
+        <span>PureWater</span>
+      </a>
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#why">Why Purify?</a></li>
+        <li><a href="#methods">Methods</a></li>
+        <li><a href="#simulator">Simulator</a></li>
+        <li><a href="#distillation">Distillation</a></li>
+        <li><a href="#chemistry">Chemistry</a></li>
+        <li><a href="#calculator">Calculator</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+      </ul>
+      <button
+        class="theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle dark theme"
+        title="Toggle dark theme"
+      >
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </nav>
+
+    <main id="main">
+      <!-- ============================================================
+           HERO SECTION
+      ============================================================= -->
+      <header class="hero" id="hero">
+        <div class="hero-bg" aria-hidden="true">
+          <svg
+            class="hero-waves"
+            viewBox="0 0 1440 320"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,160 C240,260 480,60 720,160 C960,260 1200,60 1440,160 L1440,320 L0,320 Z"
+              fill="currentColor"
+              opacity="0.15"
+            ></path>
+            <path
+              d="M0,200 C240,300 480,100 720,200 C960,300 1200,100 1440,200 L1440,320 L0,320 Z"
+              fill="currentColor"
+              opacity="0.1"
+            ></path>
+            <path
+              d="M0,240 C240,340 480,140 720,240 C960,340 1200,140 1440,240 L1440,320 L0,320 Z"
+              fill="currentColor"
+              opacity="0.08"
+            ></path>
+          </svg>
+        </div>
+        <div class="hero-content">
+          <p class="hero-eyebrow">High School Chemistry · Interactive Project</p>
+          <h1 class="hero-title">
+            Water Purification<br />&amp; Filtration Methods
+          </h1>
+          <p class="hero-subtitle">
+            Explore how science turns murky, contaminated water into safe,
+            drinkable water — through boiling, filtration, chlorination,
+            distillation, and more.
+          </p>
+          <div class="hero-cta">
+            <a href="#methods" class="btn btn-primary">Start Exploring</a>
+            <a href="#quiz" class="btn btn-ghost">Take the Quiz</a>
+          </div>
+        </div>
+        <a href="#why" class="scroll-hint" aria-label="Scroll down">
+          <span class="scroll-hint-text">Scroll</span>
+          <span class="scroll-hint-arrow" aria-hidden="true"></span>
+        </a>
+      </header>
+
+      <!-- ============================================================
+           WHY PURIFY? — contaminants and health risks
+      ============================================================= -->
+      <section class="section" id="why" aria-labelledby="why-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">01 — The Problem</span>
+            <h2 class="section-title" id="why-heading">Why Do We Purify Water?</h2>
+            <p class="section-lead">
+              Water from rivers, lakes, and wells often contains harmful
+              substances. Purification removes or destroys these contaminants
+              so the water is safe to drink.
+            </p>
+          </div>
+
+          <div class="contaminant-grid">
+            <article class="contaminant-card" tabindex="0">
+              <div class="contaminant-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="20" r="3" fill="currentColor"/><circle cx="28" cy="16" r="2.5" fill="currentColor"/><circle cx="30" cy="28" r="3.5" fill="currentColor"/><circle cx="20" cy="30" r="2" fill="currentColor"/></svg>
+              </div>
+              <h3>Pathogens</h3>
+              <p>
+                Bacteria (<em>E. coli</em>, <em>Cholera</em>), viruses, and
+                parasites that cause waterborne diseases.
+              </p>
+            </article>
+
+            <article class="contaminant-card" tabindex="0">
+              <div class="contaminant-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M12 8 L12 40 L36 40 L36 16 L28 8 Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M28 8 L28 16 L36 16" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16" y1="22" x2="32" y2="22" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="28" x2="32" y2="28" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="34" x2="26" y2="34" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <h3>Chemical Pollutants</h3>
+              <p>
+                Heavy metals (lead, mercury), pesticides, fertilisers, and
+                industrial waste dissolved in water.
+              </p>
+            </article>
+
+            <article class="contaminant-card" tabindex="0">
+              <div class="contaminant-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M8 32 Q14 26 20 32 T32 32 T40 32" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 38 Q14 32 20 38 T32 38 T40 38" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="4" fill="currentColor" opacity="0.3"/><circle cx="28" cy="12" r="3" fill="currentColor" opacity="0.3"/><circle cx="34" cy="20" r="5" fill="currentColor" opacity="0.3"/></svg>
+              </div>
+              <h3>Sediment &amp; Turbidity</h3>
+              <p>
+                Suspended particles of clay, silt, and organic matter that make
+                water cloudy — measured as <strong>turbidity</strong>.
+              </p>
+            </article>
+
+            <article class="contaminant-card" tabindex="0">
+              <div class="contaminant-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M24 6 L24 26 M24 26 L16 20 M24 26 L32 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="34" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 34 Q24 30 28 34" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <h3>Dissolved Salts</h3>
+              <p>
+                Minerals like calcium and magnesium that cause
+                <strong>hardness</strong>, and salt in seawater that makes it
+                undrinkable.
+              </p>
+            </article>
+          </div>
+
+          <!-- Animated stat bar -->
+          <div class="stat-bar" id="statBar">
+            <div class="stat-item">
+              <span class="stat-number" data-target="2.2" data-suffix="B">0</span>
+              <span class="stat-label">people lack safely managed drinking water</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="829000" data-suffix="">0</span>
+              <span class="stat-label">deaths/year from diarrhoeal diseases</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="50" data-suffix="%">0</span>
+              <span class="stat-label">of hospital beds in developing nations hold water-related patients</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           METHODS OVERVIEW — cards for each purification method
+      ============================================================= -->
+      <section class="section section-alt" id="methods" aria-labelledby="methods-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">02 — The Solutions</span>
+            <h2 class="section-title" id="methods-heading">Methods of Purification</h2>
+            <p class="section-lead">
+              No single method removes every contaminant. Water treatment plants
+              combine several methods in sequence — click each card to learn
+              more.
+            </p>
+          </div>
+
+          <div class="method-grid" id="methodGrid">
+            <!-- Cards are rendered by JS for interactivity, with noscript fallback below -->
+            <noscript>
+              <p>Please enable JavaScript for the full interactive experience.</p>
+            </noscript>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           INTERACTIVE FILTRATION SIMULATOR
+      ============================================================= -->
+      <section class="section" id="simulator" aria-labelledby="sim-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">03 — Interactive</span>
+            <h2 class="section-title" id="sim-heading">Filtration Simulator</h2>
+            <p class="section-lead">
+              A sand-and-gravel filter traps particles as water passes through
+              multiple layers. Click each layer to see what it removes.
+            </p>
+          </div>
+
+          <div class="simulator-layout">
+            <!-- SVG filter column diagram -->
+            <div class="simulator-diagram" id="filterDiagram">
+              <svg viewBox="0 0 260 520" role="img" aria-label="Cross-section of a sand and gravel water filter">
+                <!-- Water droplets animation container -->
+                <g id="dropletsGroup" aria-hidden="true"></g>
+
+                <!-- Filter tank -->
+                <rect x="50" y="60" width="160" height="420" rx="8" fill="var(--sim-tank)" stroke="var(--sim-stroke)" stroke-width="2"/>
+
+                <!-- Layer: Fine sand (top) -->
+                <g class="filter-layer" data-layer="sand" tabindex="0" role="button" aria-label="Fine sand layer">
+                  <rect x="52" y="62" width="156" height="80" fill="var(--layer-sand)" />
+                  <text x="130" y="100" text-anchor="middle" class="svg-label">Fine Sand</text>
+                  <text x="130" y="118" text-anchor="middle" class="svg-sublabel">click to learn more</text>
+                </g>
+
+                <!-- Layer: Coarse sand -->
+                <g class="filter-layer" data-layer="coarse" tabindex="0" role="button" aria-label="Coarse sand layer">
+                  <rect x="52" y="142" width="156" height="70" fill="var(--layer-coarse)" />
+                  <text x="130" y="178" text-anchor="middle" class="svg-label">Coarse Sand</text>
+                </g>
+
+                <!-- Layer: Gravel -->
+                <g class="filter-layer" data-layer="gravel" tabindex="0" role="button" aria-label="Gravel layer">
+                  <rect x="52" y="212" width="156" height="70" fill="var(--layer-gravel)" />
+                  <text x="130" y="248" text-anchor="middle" class="svg-label">Gravel</text>
+                </g>
+
+                <!-- Layer: Charcoal -->
+                <g class="filter-layer" data-layer="charcoal" tabindex="0" role="button" aria-label="Activated charcoal layer">
+                  <rect x="52" y="282" width="156" height="70" fill="var(--layer-charcoal)" />
+                  <text x="130" y="318" text-anchor="middle" class="svg-label">Charcoal</text>
+                </g>
+
+                <!-- Layer: Cotton/ Cloth -->
+                <g class="filter-layer" data-layer="cotton" tabindex="0" role="button" aria-label="Cotton cloth layer">
+                  <rect x="52" y="352" width="156" height="50" fill="var(--layer-cotton)" />
+                  <text x="130" y="380" text-anchor="middle" class="svg-label">Cotton Cloth</text>
+                </g>
+
+                <!-- Output pipe -->
+                <rect x="110" y="455" width="40" height="25" fill="var(--sim-stroke)" rx="4"/>
+                <text x="130" y="500" text-anchor="middle" class="svg-sublabel">Clean Water</text>
+
+                <!-- Inflow arrow -->
+                <path d="M130 30 L130 55 M125 48 L130 55 L135 48" stroke="var(--sim-stroke)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <text x="130" y="22" text-anchor="middle" class="svg-sublabel">Dirty Water In</text>
+              </svg>
+            </div>
+
+            <!-- Info panel that updates on layer click -->
+            <div class="simulator-info" id="simulatorInfo">
+              <div class="info-default">
+                <h3>How a Sand Filter Works</h3>
+                <p>
+                  Water poured in at the top passes slowly through layers of
+                  decreasing particle size. Each layer traps progressively
+                  smaller impurities. Click any layer in the diagram to see
+                  what it does.
+                </p>
+                <div class="info-hint">
+                  <span class="info-hint-dot"></span>
+                  Click a layer to begin
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           DISTILLATION ANIMATION
+      ============================================================= -->
+      <section class="section section-alt" id="distillation" aria-labelledby="dist-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">04 — Interactive</span>
+            <h2 class="section-title" id="dist-heading">Distillation Process</h2>
+            <p class="section-lead">
+              Distillation separates water from dissolved substances by boiling
+              and condensing. Press the button to run the animation step by step.
+            </p>
+          </div>
+
+          <div class="distillation-layout">
+            <div class="distillation-diagram">
+              <svg viewBox="0 0 600 340" role="img" aria-label="Distillation apparatus animation">
+                <!-- Heat source -->
+                <g id="heatSource">
+                  <rect x="60" y="280" width="100" height="30" rx="4" fill="var(--dist-heat)" stroke="var(--sim-stroke)" stroke-width="1.5"/>
+                  <text x="110" y="300" text-anchor="middle" class="svg-sublabel">Bunsen Burner</text>
+                  <!-- Flame -->
+                  <g id="flame" class="flame" aria-hidden="true">
+                    <path d="M110 278 Q100 260 110 245 Q120 260 110 278 Z" fill="var(--dist-flame)" opacity="0.8"/>
+                    <path d="M110 276 Q104 264 110 252 Q116 264 110 276 Z" fill="var(--dist-flame-inner)" opacity="0.9"/>
+                  </g>
+                </g>
+
+                <!-- Round-bottom flask -->
+                <g id="flask">
+                  <circle cx="110" cy="240" r="35" fill="var(--dist-water)" stroke="var(--sim-stroke)" stroke-width="2"/>
+                  <!-- Water inside -->
+                  <path id="flaskWater" d="M77 245 Q110 255 143 245 L143 255 Q110 265 77 255 Z" fill="var(--dist-water-fill)" opacity="0.6"/>
+                  <!-- Neck -->
+                  <rect x="104" y="195" width="12" height="20" fill="var(--sim-tank)" stroke="var(--sim-stroke)" stroke-width="1.5"/>
+                  <text x="110" y="244" text-anchor="middle" class="svg-sublabel">Water</text>
+                </g>
+
+                <!-- Steam particles -->
+                <g id="steamGroup" aria-hidden="true"></g>
+
+                <!-- Delivery tube -->
+                <path d="M116 200 Q200 180 260 200 L380 200" fill="none" stroke="var(--sim-stroke)" stroke-width="4" stroke-linecap="round"/>
+                <path d="M116 196 Q200 176 260 196 L380 196" fill="none" stroke="var(--glass)" stroke-width="1" opacity="0.5"/>
+
+                <!-- Condenser (Liebig) -->
+                <g id="condenser">
+                  <rect x="380" y="170" width="160" height="50" rx="6" fill="var(--sim-tank)" stroke="var(--sim-stroke)" stroke-width="2"/>
+                  <rect x="384" y="174" width="152" height="42" rx="4" fill="var(--glass)" opacity="0.3"/>
+                  <!-- Cooling water in -->
+                  <path d="M540 195 L560 195 L560 170" fill="none" stroke="var(--dist-cool)" stroke-width="3" stroke-linecap="round"/>
+                  <text x="560" y="162" text-anchor="middle" class="svg-sublabel">Cold water in</text>
+                  <!-- Cooling water out -->
+                  <path d="M380 195 L360 195 L360 220" fill="none" stroke="var(--dist-cool)" stroke-width="3" stroke-linecap="round"/>
+                  <text x="360" y="236" text-anchor="middle" class="svg-sublabel">Water out</text>
+                </g>
+
+                <!-- Condensed droplets -->
+                <g id="condensedDroplets" aria-hidden="true"></g>
+
+                <!-- Collection flask -->
+                <g id="collectFlask">
+                  <path d="M540 220 L540 240 Q540 270 560 270 Q580 270 580 240 L580 220 Z" fill="var(--sim-tank)" stroke="var(--sim-stroke)" stroke-width="2"/>
+                  <path id="collectedWater" d="M545 255 Q560 262 575 255 L575 268 Q560 270 545 268 Z" fill="var(--dist-water-fill)" opacity="0"/>
+                  <text x="560" y="290" text-anchor="middle" class="svg-sublabel">Pure Water</text>
+                </g>
+
+                <!-- Thermometer -->
+                <g id="thermometer">
+                  <rect x="96" y="170" width="6" height="30" rx="2" fill="var(--sim-tank)" stroke="var(--sim-stroke)" stroke-width="1"/>
+                  <circle cx="99" cy="202" r="5" fill="var(--dist-heat)"/>
+                  <text x="99" y="165" text-anchor="middle" class="svg-sublabel">100°C</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="distillation-controls">
+              <button class="btn btn-primary" id="distillStart">Start Distillation</button>
+              <button class="btn btn-ghost" id="distillReset" disabled>Reset</button>
+              <div class="distillation-steps" id="distillSteps">
+                <div class="dist-step" data-step="0">
+                  <span class="step-num">1</span>
+                  <p>Heating begins. The water in the flask warms toward its boiling point.</p>
+                </div>
+                <div class="dist-step" data-step="1">
+                  <span class="step-num">2</span>
+                  <p>At 100°C, water turns to steam, leaving dissolved salts and impurities behind.</p>
+                </div>
+                <div class="dist-step" data-step="2">
+                  <span class="step-num">3</span>
+                  <p>Steam travels through the delivery tube into the condenser.</p>
+                </div>
+                <div class="dist-step" data-step="3">
+                  <span class="step-num">4</span>
+                  <p>Cold water in the condenser jacket cools the steam, condensing it back to liquid.</p>
+                </div>
+                <div class="dist-step" data-step="4">
+                  <span class="step-num">5</span>
+                  <p>Pure distilled water drips into the collection flask — free of all dissolved substances.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           CHEMISTRY & EQUATIONS — KaTeX rendered
+      ============================================================= -->
+      <section class="section" id="chemistry" aria-labelledby="chem-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">05 — The Science</span>
+            <h2 class="section-title" id="chem-heading">The Chemistry Behind Purification</h2>
+            <p class="section-lead">
+              Several purification methods rely on chemical reactions. Here are
+              the key equations, beautifully typeset with KaTeX.
+            </p>
+          </div>
+
+          <div class="chemistry-grid">
+            <article class="chem-card">
+              <span class="chem-badge">Disinfection</span>
+              <h3>Chlorination</h3>
+              <p>
+                Chlorine gas reacts with water to form hypochlorous acid, a
+                powerful disinfectant that kills bacteria by destroying cell
+                membranes.
+              </p>
+              <div class="chem-equation" data-equation="\ce{Cl2 + H2O -> HCl + HOCl}"></div>
+              <p class="chem-note">
+                <strong>HOCl</strong> (hypochlorous acid) penetrates bacterial
+                cell walls and oxidises enzymes, killing the organism.
+              </p>
+            </article>
+
+            <article class="chem-card">
+              <span class="chem-badge">Coagulation</span>
+              <h3>Alum Treatment</h3>
+              <p>
+                Aluminium sulfate (alum) is added to muddy water. It reacts to
+                form a sticky precipitate that traps fine particles.
+              </p>
+              <div class="chem-equation" data-equation="\ce{Al2(SO4)3 + 6H2O -> 2Al(OH)3 (v) + 3H2SO4}"></div>
+              <p class="chem-note">
+                <strong>Al(OH)₃</strong> forms a <em>floc</em> — a fluffy mass
+                that settles to the bottom, carrying dirt with it.
+              </p>
+            </article>
+
+            <article class="chem-card">
+              <span class="chem-badge">Softening</span>
+              <h3>Ion Exchange</h3>
+              <p>
+                Hard water contains Ca²⁺ and Mg²⁺ ions. An ion-exchange resin
+                swaps these for harmless Na⁺ ions, softening the water.
+              </p>
+              <div class="chem-equation" data-equation="\ce{Ca^{2+} + 2NaR -> CaR2 + 2Na+}"></div>
+              <p class="chem-note">
+                The resin (<strong>R</strong>) is regenerated by flushing with
+                concentrated salt solution.
+              </p>
+            </article>
+
+            <article class="chem-card">
+              <span class="chem-badge">Neutralisation</span>
+              <h3>pH Adjustment</h3>
+              <p>
+                Acidic water is treated with lime (calcium hydroxide) to raise
+                its pH to a safe level for consumption.
+              </p>
+              <div class="chem-equation" data-equation="\ce{Ca(OH)2 + 2H+ -> Ca^{2+} + 2H2O}"></div>
+              <p class="chem-note">
+                The ideal pH for drinking water is between <strong>6.5</strong>
+                and <strong>8.5</strong>.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           INTERACTIVE CALCULATOR
+      ============================================================= -->
+      <section class="section section-alt" id="calculator" aria-labelledby="calc-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">06 — Interactive</span>
+            <h2 class="section-title" id="calc-heading">Water Treatment Calculator</h2>
+            <p class="section-lead">
+              Calculate chlorine dosage for safe disinfection, or figure out
+              how much to dilute a solution to reach a target concentration.
+            </p>
+          </div>
+
+          <div class="calc-layout">
+            <!-- Tab switcher -->
+            <div class="calc-tabs" role="tablist">
+              <button class="calc-tab active" role="tab" aria-selected="true" data-tab="chlorine" id="tab-chlorine">
+                Chlorine Dosage
+              </button>
+              <button class="calc-tab" role="tab" aria-selected="false" data-tab="dilution" id="tab-dilution">
+                Dilution (C₁V₁ = C₂V₂)
+              </button>
+            </div>
+
+            <!-- Chlorine calculator panel -->
+            <div class="calc-panel active" id="panel-chlorine" role="tabpanel" aria-labelledby="tab-chlorine">
+              <div class="calc-form">
+                <div class="calc-field">
+                  <label for="cl-volume">Volume of water (litres)</label>
+                  <input type="number" id="cl-volume" min="0" step="0.1" value="1000" placeholder="e.g. 1000" />
+                </div>
+                <div class="calc-field">
+                  <label for="cl-target">Target chlorine concentration (mg/L)</label>
+                  <input type="number" id="cl-target" min="0" step="0.1" value="2" placeholder="e.g. 2" />
+                  <span class="calc-hint">WHO recommends 0.2–5 mg/L for drinking water</span>
+                </div>
+                <div class="calc-field">
+                  <label for="cl-stock">Stock solution strength (%)</label>
+                  <input type="number" id="cl-stock" min="0" max="100" step="0.1" value="5" placeholder="e.g. 5" />
+                </div>
+                <button class="btn btn-primary" id="cl-calculate">Calculate</button>
+              </div>
+              <div class="calc-result" id="cl-result">
+                <p class="calc-result-placeholder">Enter your values and press Calculate.</p>
+              </div>
+            </div>
+
+            <!-- Dilution calculator panel -->
+            <div class="calc-panel" id="panel-dilution" role="tabpanel" aria-labelledby="tab-dilution" hidden>
+              <div class="calc-form">
+                <div class="calc-field">
+                  <label for="dil-c1">Initial concentration, C₁ (mol/L)</label>
+                  <input type="number" id="dil-c1" min="0" step="0.01" value="1" placeholder="e.g. 1" />
+                </div>
+                <div class="calc-field">
+                  <label for="dil-v1">Initial volume, V₁ (mL) — to find</label>
+                  <input type="number" id="dil-v1" min="0" step="0.1" placeholder="auto-calculated" disabled />
+                </div>
+                <div class="calc-field">
+                  <label for="dil-c2">Target concentration, C₂ (mol/L)</label>
+                  <input type="number" id="dil-c2" min="0" step="0.01" value="0.1" placeholder="e.g. 0.1" />
+                </div>
+                <div class="calc-field">
+                  <label for="dil-v2">Target volume, V₂ (mL)</label>
+                  <input type="number" id="dil-v2" min="0" step="1" value="500" placeholder="e.g. 500" />
+                </div>
+                <button class="btn btn-primary" id="dil-calculate">Calculate</button>
+              </div>
+              <div class="calc-result" id="dil-result">
+                <p class="calc-result-placeholder">Enter your values and press Calculate.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           INTERACTIVE QUIZ
+      ============================================================= -->
+      <section class="section" id="quiz" aria-labelledby="quiz-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">07 — Test Yourself</span>
+            <h2 class="section-title" id="quiz-heading">Knowledge Quiz</h2>
+            <p class="section-lead">
+              Answer five questions to test what you've learned. You'll get
+              instant feedback and a final score.
+            </p>
+          </div>
+
+          <div class="quiz-container" id="quizContainer">
+            <!-- Quiz rendered by JS -->
+            <noscript>
+              <p>Please enable JavaScript to take the interactive quiz.</p>
+            </noscript>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SUMMARY / TAKEAWAYS
+      ============================================================= -->
+      <section class="section section-alt" id="summary" aria-labelledby="summary-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">08 — Key Points</span>
+            <h2 class="section-title" id="summary-heading">Key Takeaways</h2>
+          </div>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span class="summary-num">1</span>
+              <p><strong>No single method is enough.</strong> Real water treatment combines coagulation, filtration, disinfection, and pH adjustment.</p>
+            </div>
+            <div class="summary-item">
+              <span class="summary-num">2</span>
+              <p><strong>Filtration removes particles</strong>, not dissolved chemicals. Activated charcoal adsorbs many organic compounds.</p>
+            </div>
+            <div class="summary-item">
+              <span class="summary-num">3</span>
+              <p><strong>Distillation produces the purest water</strong> but is slow and energy-intensive — impractical for large-scale supply.</p>
+            </div>
+            <div class="summary-item">
+              <span class="summary-num">4</span>
+              <p><strong>Chlorination is the most common disinfection method</strong> worldwide because it's cheap, effective, and provides residual protection.</p>
+            </div>
+            <div class="summary-item">
+              <span class="summary-num">5</span>
+              <p><strong>Chemistry is central</strong> — from precipitation reactions in coagulation to redox in chlorination and ion exchange in softening.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================================================
+         REFERENCES / SOURCES
+    ============================================================= -->
+    <section class="section" id="references" aria-labelledby="ref-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">09 — Sources</span>
+          <h2 class="section-title" id="ref-heading">References &amp; Further Reading</h2>
+          <p class="section-lead">
+            All factual claims, statistics, and chemical equations on this
+            page are sourced from the references below.
+          </p>
+        </div>
+        <div class="references-grid">
+          <div class="reference-item">
+            <span class="reference-num">1</span>
+            <p class="reference-text">
+              <strong>WHO — Drinking Water</strong>: WHO/UNICEF Joint Monitoring
+              Programme (JMP) report on safely managed drinking water. 2.2 billion
+              people lack safely managed drinking water services.
+              <a href="https://www.who.int/teams/environment-climate-change-and-health/water-sanitation-and-health-water-and-sanitation/drinking-water" target="_blank" rel="noopener">who.int/water-sanitation-and-health</a>
+            </p>
+          </div>
+          <div class="reference-item">
+            <span class="reference-num">2</span>
+            <p class="reference-text">
+              <strong>WHO — Guidelines for Drinking-Water Quality</strong> (4th ed.):
+              Free chlorine residual of 0.2–5 mg/L recommended for drinking water.
+              <a href="https://www.who.int/publications/i/item/9789241549950" target="_blank" rel="noopener">who.int/publications</a>
+            </p>
+          </div>
+          <div class="reference-item">
+            <span class="reference-num">3</span>
+            <p class="reference-text">
+              <strong>CDC — Water Treatment Methods</strong>: Boiling, chlorination,
+              filtration, and distillation guidance for safe water.
+              <a href="https://www.cdc.gov/healthywater/drinking/index.html" target="_blank" rel="noopener">cdc.gov/healthywater</a>
+            </p>
+          </div>
+          <div class="reference-item">
+            <span class="reference-num">4</span>
+            <p class="reference-text">
+              <strong>EPA — Drinking Water Treatability Database</strong>:
+              Coagulation, flocculation, and alum treatment processes.
+              <a href="https://www.epa.gov/water-research/drinking-water-treatability-database" target="_blank" rel="noopener">epa.gov/water-research</a>
+            </p>
+          </div>
+          <div class="reference-item">
+            <span class="reference-num">5</span>
+            <p class="reference-text">
+              <strong>Chemistry equations</strong> verified against:
+              Atkins, P. &amp; de Paula, J. <em>Physical Chemistry for the Chemical
+              Sciences</em>, and Brown, T. et al. <em>Chemistry: The Central
+              Science</em> (Pearson).
+            </p>
+          </div>
+          <div class="reference-item">
+            <span class="reference-num">6</span>
+            <p class="reference-text">
+              <strong>KaTeX</strong> — math typesetting library used for rendering
+              chemical equations.
+              <a href="https://katex.org" target="_blank" rel="noopener">katex.org</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================= -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          An interactive educational project for High School Chemistry.
+          Built with vanilla JavaScript, CSS, and KaTeX for mathematical
+          typesetting.
+        </p>
+        <p class="footer-credit">
+          Water Purification &amp; Filtration Methods · Chemistry Project
+        </p>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
